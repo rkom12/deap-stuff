@@ -3,7 +3,7 @@ import math
 import random
 import numpy
 
-from deap import algorithms
+from deap import algorithms # the loop part - the heart of GP
 from deap import base	# hardcore evolutionary operators and a virtual Fitness class (different from the creator.create(fitness object)
 from deap import creator	# creates classes of our own liking (here's how we modify our GAs)
 from deap import tools	# operators dealing with individuals - crossover,mutation etc - also,some of the functions here are actually from the 'gp' module
