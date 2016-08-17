@@ -1,5 +1,5 @@
 import ystockquote	# data fetch no jutsu
-import ast	# autovivification - perl stlye no
+import ast	# autovivification - perl stlye no jutsu
 import operator
 import math
 import random
@@ -248,7 +248,7 @@ def main():
 
 
 # the below algo takes a population as an input and returns an optimized population and a logbook
-    pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, 40, stats=mstats,
+    pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, 4, stats=mstats,
                                    halloffame=hof, verbose=True)	# heavy modification possible again ---------------------------- MP11
     
 # deap.algorithms.eaSimple(population, toolbox, cxpb, mutpb, ngen[, stats, halloffame, verbose])
