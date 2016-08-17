@@ -40,3 +40,10 @@ Finally,a proper working mini-prototype of our project. Admittedly, it's rather 
 
 
 ---------------------------------------------------------------------------------------------------------------------------------
+microsoft_proto_output
+
+Output of the basic code. The expressions that are formed kinda resemble time-series analysis stuff - looks promising !
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
