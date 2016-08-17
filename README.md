@@ -33,3 +33,10 @@ nested.py --------------------------------->
 Illustrates the use of AutoVivification to traverse nested dictionaries like a pro.
 
 ---------------------------------------------------------------------------------------------------------------------------------
+microsoft_proto.py --------------------------------->
+
+Finally,a proper working mini-prototype of our project. Admittedly, it's rather too mini - but hey,I'd say this lays down solid foundations for our GP-stock project.
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
