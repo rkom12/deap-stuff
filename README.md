@@ -8,8 +8,10 @@ A sample symbolic regression GP code has been carefully optimized and explained.
 To run the code,use pip to install the DEAP (Distributed Evolutionary Algorithms in Python) package -
 >> pip install deap
 
+
 If pip wasn't bundled with your current python version,then isntall pip -
 >> sudo apt-get install python-setuptools
+
 >> sudo easy_install pip
 
 
