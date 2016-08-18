@@ -1,5 +1,15 @@
 # 'deap'-stuff
 
+In-sem break ->
+
+So now,we've got a idea of how RSI works. Tentatively, we'll use the RSI model (take average of 14 days,smooth it with current values,scale to 0-100) and use resistance bands to find the 'overbought' and 'oversold' conditions to determine the buying or selling or holding of stocks.
+
+In the 2nd approach,we'll do the exact same things except that the 'taking average & smoothing with current values & (maybe)scaling it to 0-100' will all be done by GP. Thus, we hope that a comparitive paper might be possible.
+
+And to top it off,we'll try to find some fundamental analysis stuff that might help us identify strong trends so that the RSI accuracy is maintained.
+
+Well then,we'll continue after the exams !
+
 ---------------------------------------------------------------------------------------------------------------------------------
 example.py (modified code will be uploaded soon) --------------------------------->
 
