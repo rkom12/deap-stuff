@@ -12,7 +12,6 @@ from deap import tools	# operators dealing with individuals - crossover,mutation
 from deap import gp	# tree building and function evaluating
 
 # ********************************************************************************************************************************************
-
 class AutoVivification(dict):
     def __getitem__(self, item):
         try:
@@ -28,6 +27,39 @@ class AutoVivification(dict):
 #b = ast.literal_eval(a['2016-08-07']['High'])
 #b = b+100
 #print b
+
+past_data = AutoVivification()
+past_data = ystockquote.get_historical_prices('MSFT','2016-08-08','2016-08-12')
+
+Open_8 = ast.literal_eval(past_data['2016-08-08']['Open'])
+Open_9 = ast.literal_eval(past_data['2016-08-09']['Open'])
+Open_10 = ast.literal_eval(past_data['2016-08-10']['Open'])
+Open_11 = ast.literal_eval(past_data['2016-08-11']['Open'])
+
+Close_8 = ast.literal_eval(past_data['2016-08-08']['Close'])
+Close_9 = ast.literal_eval(past_data['2016-08-09']['Close'])
+Close_10 = ast.literal_eval(past_data['2016-08-10']['Close'])
+Close_11 = ast.literal_eval(past_data['2016-08-11']['Close'])
+Close_12 = ast.literal_eval(past_data['2016-08-12']['Close'])	# one more for the last day check
+
+Low_8 = ast.literal_eval(past_data['2016-08-08']['Low'])
+Low_9 = ast.literal_eval(past_data['2016-08-09']['Low'])
+Low_10 = ast.literal_eval(past_data['2016-08-10']['Low'])
+Low_11 = ast.literal_eval(past_data['2016-08-11']['Low'])
+
+High_8 = ast.literal_eval(past_data['2016-08-08']['High'])
+High_9 = ast.literal_eval(past_data['2016-08-09']['High'])
+High_10 = ast.literal_eval(past_data['2016-08-10']['High'])
+High_11 = ast.literal_eval(past_data['2016-08-11']['High'])
+
+Volume_8 = ast.literal_eval(past_data['2016-08-08']['Volume'])
+Volume_9 = ast.literal_eval(past_data['2016-08-09']['Volume'])
+Volume_10 = ast.literal_eval(past_data['2016-08-10']['Volume'])
+Volume_11 = ast.literal_eval(past_data['2016-08-11']['Volume'])
+
+
+
+
 
 #--------------------------------------------------------------------------------------------- MP - Modification Points for various approaches
 # Define new functions - we can have our own function / terminal sets here --------------------------------------------------------------- MP1
@@ -148,36 +180,6 @@ toolbox.register("compile", gp.compile, pset=pset) # deap.gp.compile(expr, pset)
 def evalSymbReg(individual):	# receives an individual as an input and returns CORRESPONDING fitness --------------------------- MP8
     # Transform the tree expression in a callable function
     func = toolbox.compile(expr=individual)	# our above registered functions are being used
-	
-    past_data = AutoVivification()
-    past_data = ystockquote.get_historical_prices('MSFT','2016-08-08','2016-08-12')
-
-    Open_8 = ast.literal_eval(past_data['2016-08-08']['Open'])
-    Open_9 = ast.literal_eval(past_data['2016-08-09']['Open'])
-    Open_10 = ast.literal_eval(past_data['2016-08-10']['Open'])
-    Open_11 = ast.literal_eval(past_data['2016-08-11']['Open'])
-
-    Close_8 = ast.literal_eval(past_data['2016-08-08']['Close'])
-    Close_9 = ast.literal_eval(past_data['2016-08-09']['Close'])
-    Close_10 = ast.literal_eval(past_data['2016-08-10']['Close'])
-    Close_11 = ast.literal_eval(past_data['2016-08-11']['Close'])
-    Close_12 = ast.literal_eval(past_data['2016-08-12']['Close'])	# one more for the last day check
-
-    Low_8 = ast.literal_eval(past_data['2016-08-08']['Low'])
-    Low_9 = ast.literal_eval(past_data['2016-08-09']['Low'])
-    Low_10 = ast.literal_eval(past_data['2016-08-10']['Low'])
-    Low_11 = ast.literal_eval(past_data['2016-08-11']['Low'])
-
-    High_8 = ast.literal_eval(past_data['2016-08-08']['High'])
-    High_9 = ast.literal_eval(past_data['2016-08-09']['High'])
-    High_10 = ast.literal_eval(past_data['2016-08-10']['High'])
-    High_11 = ast.literal_eval(past_data['2016-08-11']['High'])
-
-    Volume_8 = ast.literal_eval(past_data['2016-08-08']['Volume'])
-    Volume_9 = ast.literal_eval(past_data['2016-08-09']['Volume'])
-    Volume_10 = ast.literal_eval(past_data['2016-08-10']['Volume'])
-    Volume_11 = ast.literal_eval(past_data['2016-08-11']['Volume'])
-
 
 
 #	For our stock project,
@@ -248,7 +250,7 @@ def main():
 
 
 # the below algo takes a population as an input and returns an optimized population and a logbook
-    pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, 4, stats=mstats,
+    pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, 140, stats=mstats,
                                    halloffame=hof, verbose=True)	# heavy modification possible again ---------------------------- MP11
     
 # deap.algorithms.eaSimple(population, toolbox, cxpb, mutpb, ngen[, stats, halloffame, verbose])
