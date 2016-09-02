@@ -1,9 +1,11 @@
 import ystockquote	# data fetch no jutsu
 import ast	# autovivification - perl stlye no jutsu
+import pandas	# dates and stuff
 import operator
 import math
 import random
 import numpy
+
 
 from deap import algorithms
 from deap import base	# hardcore evolutionary operators and a virtual Fitness class (different from the creator.create(fitness object)
@@ -29,34 +31,33 @@ class AutoVivification(dict):
 #print b
 
 past_data = AutoVivification()
-past_data = ystockquote.get_historical_prices('MSFT','2016-08-08','2016-08-12')
+past_data = ystockquote.get_historical_prices('MSFT','2016-07-05','2016-09-01')	# take dates from july to september
 
-Open_8 = ast.literal_eval(past_data['2016-08-08']['Open'])
-Open_9 = ast.literal_eval(past_data['2016-08-09']['Open'])
-Open_10 = ast.literal_eval(past_data['2016-08-10']['Open'])
-Open_11 = ast.literal_eval(past_data['2016-08-11']['Open'])
 
-Close_8 = ast.literal_eval(past_data['2016-08-08']['Close'])
-Close_9 = ast.literal_eval(past_data['2016-08-09']['Close'])
-Close_10 = ast.literal_eval(past_data['2016-08-10']['Close'])
-Close_11 = ast.literal_eval(past_data['2016-08-11']['Close'])
-Close_12 = ast.literal_eval(past_data['2016-08-12']['Close'])	# one more for the last day check
 
-Low_8 = ast.literal_eval(past_data['2016-08-08']['Low'])
-Low_9 = ast.literal_eval(past_data['2016-08-09']['Low'])
-Low_10 = ast.literal_eval(past_data['2016-08-10']['Low'])
-Low_11 = ast.literal_eval(past_data['2016-08-11']['Low'])
+weekdays = pandas.Series(pandas.bdate_range('20160705 09:10:12', periods=41))	# only weekdays from july to september
+dates = weekdays.dt.strftime('%Y-%m-%d')
 
-High_8 = ast.literal_eval(past_data['2016-08-08']['High'])
-High_9 = ast.literal_eval(past_data['2016-08-09']['High'])
-High_10 = ast.literal_eval(past_data['2016-08-10']['High'])
-High_11 = ast.literal_eval(past_data['2016-08-11']['High'])
+p = 41	# run the loop for 40 days as periods = 41
+i = 0
 
-Volume_8 = ast.literal_eval(past_data['2016-08-08']['Volume'])
-Volume_9 = ast.literal_eval(past_data['2016-08-09']['Volume'])
-Volume_10 = ast.literal_eval(past_data['2016-08-10']['Volume'])
-Volume_11 = ast.literal_eval(past_data['2016-08-11']['Volume'])
+open_val = []
+close_val = []
+low_val = []
+high_val = []
+volume_val = []
 
+
+
+while i<(p-1):
+    open_val.append(ast.literal_eval(past_data[dates[i]]['Open']))
+    close_val.append(ast.literal_eval(past_data[dates[i]]['Close']))
+    low_val.append(ast.literal_eval(past_data[dates[i]]['Low']))
+    high_val.append(ast.literal_eval(past_data[dates[i]]['High']))
+    volume_val.append(ast.literal_eval(past_data[dates[i]]['Volume']))
+    i = i + 1
+
+close_val.append(ast.literal_eval(past_data[dates[i]]['Close']))	# last day check
 
 
 
@@ -192,16 +193,21 @@ def evalSymbReg(individual):	# receives an individual as an input and returns CO
     # and the real function : x**4 + x**3 + x**2 + x
 
     #abs_errors = ((func(Open,Close,Low,High,Volume) - close_9)+(func(Open,Close,Low,High,Volume) - close_10)+(func(Open,Close,Low,High,Volume) - close_11))
-    error1 = abs(func(Open_8,Close_8,Low_8,High_8,Volume_8) - Close_9)
-    error2 = abs(func(Open_9,Close_9,Low_9,High_9,Volume_9) - Close_10)
-    error3 = abs(func(Open_10,Close_10,Low_10,High_10,Volume_10) - Close_11)
-    error4 = abs(func(Open_11,Close_11,Low_11,High_11,Volume_11) - Close_12)
 
-    abs_errors = error1 + error2 + error3 + error4 
+    abs_error = 0
+    
+    j = 40
+    k = 0
+
+    while k<j:
+        error = abs(func(open_val[k],close_val[k],low_val[k],high_val[k],volume_val[k]) - close_val[k+1])
+        k = k + 1
+        abs_error = abs_error + error
+ 
     #abs_errors = ((func(o,c,l,h,v)-close_9)+(func(o,c,l,h,v)-close_10)+(func(o,c,l,h,v)-close_11)) 
     #sqerrors = ((func(x) - x**4 - x**3 - x**2 - x)**2 for x in points)
     #return math.fsum(sqerrors) / len(points),	# the evaluation function ALWAYS returns a tuple,hence the comma 
-    return abs_errors,
+    return abs_error,
 
 
 toolbox.register("evaluate",evalSymbReg)	# x from -1 to +1 will be sent as points to make up the (expected-obtained) function evaluations
