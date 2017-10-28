@@ -2,9 +2,9 @@
 
 In-sem break ->
 
-So now,we've got a idea of how RSI works. Tentatively, we'll use the RSI model (take average of 14 days,smooth it with current values,scale to 0-100) and use resistance bands to find the 'overbought' and 'oversold' conditions to determine the buying or selling or holding of stocks.
+So now,we've got a idea of how RSI works. Tentatively, we'll use the RSI model (take average of 14 days,smooth it with current values,scale to 0-100) and use resistance bands to find the **overbought** and **oversold** conditions to determine the buying or selling or holding of stocks.
 
-In the 2nd approach,we'll do the exact same things except that the 'taking average & smoothing with current values & (maybe)scaling it to 0-100' will all be done by GP. Thus, we hope that a comparitive paper might be possible.
+In the 2nd approach- We'll do the exact same things, except that the 'taking average & smoothing with current values & (maybe)scaling it to 0-100' will all be done by GP(Genetic Programming). Thus, we hope that a comparitive paper might be possible.
 
 And to top it off,we'll try to find some fundamental analysis stuff that might help us identify strong trends so that the RSI accuracy is maintained.
 
@@ -16,13 +16,18 @@ example.py (modified code will be uploaded soon) -------------------------------
 A sample symbolic regression GP code has been carefully optimized and explained. Our main stock forecasting code will (probably) be similar to this 'style' of code.
 
 To run the code,use pip to install the DEAP (Distributed Evolutionary Algorithms in Python) package -
->> pip install deap
-
+```
+pip install deap
+```
 
 If pip wasn't bundled with your current python version,then isntall pip -
->> sudo apt-get install python-setuptools
+```
+sudo apt-get install python-setuptools
 
->> sudo easy_install pip
+sudo easy_install pip
+```
+
+## File Description:-
 
 
 ---------------------------------------------------------------------------------------------------------------------------------
